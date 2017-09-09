@@ -1,10 +1,10 @@
 module.exports = {
   "parserOptions": {
-   "ecmaVersion": 6
+   "ecmaVersion": 2017
  },
     "rules": {
         "no-console":0,
-        
+
         "quotes": [
             2,
             "single"
