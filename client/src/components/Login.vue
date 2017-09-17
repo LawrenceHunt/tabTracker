@@ -6,18 +6,24 @@
           <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
         <div class='pl-4 pr-4 pt-2'>
+          <form
+            name="tab-tracker-form"
+            autocomplete="off"
+          >
+            <v-text-field
+              label="email"
+              v-model='email'
+              class="input-group--focused"
+              ></v-text-field>
+          </br>
           <v-text-field
-            label="email"
-            v-model='email'
-            class="input-group--focused"
+              type='password'
+              label="password"
+              v-model='password'
+              class="input-group--focused"
+              autocomplete="new-password"
             ></v-text-field>
-        </br>
-        <v-text-field
-            type='password'
-            label="password"
-            v-model='password'
-            class="input-group--focused"
-          ></v-text-field>
+          </form>
         </br>
           <div class='error' v-html='error' />
         </br>
@@ -56,10 +62,13 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
+
       } catch (error) {
         this.error = error.response.data.error
       }
