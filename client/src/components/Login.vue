@@ -1,32 +1,35 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class='white elevation-2 pb-3'>
-        <v-toolbar flat dense class='cyan' dark>
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
-        <div class='pl-4 pr-4 pt-2'>
-          <form
-            name="tab-tracker-form"
-            autocomplete="off"
-          >
-            <v-text-field
-              label="email"
-              v-model='email'
-              class="input-group--focused"
-              ></v-text-field>
-          </br>
+      <panel title="Login">
+
+        <form
+          name="tab-tracker-form"
+          autocomplete="off"
+        >
           <v-text-field
-              type='password'
-              label="password"
-              v-model='password'
-              class="input-group--focused"
-              autocomplete="new-password"
+            label="email"
+            v-model='email'
+            class="input-group--focused"
             ></v-text-field>
-          </form>
-        </br>
-          <div class='error' v-html='error' />
-        </br>
+
+        <br>
+
+        <v-text-field
+            type='password'
+            label="password"
+            v-model='password'
+            class="input-group--focused"
+            autocomplete="new-password"
+          ></v-text-field>
+        </form>
+
+        <br>
+
+          <div class='danger-alert' v-html='error' />
+
+        <br>
+
           <v-btn
             dark
             @click="login"
@@ -34,8 +37,8 @@
           >
             Log In
           </v-btn>
-        </div>
-      </div>
+
+      </panel>
     </v-flex>
   </v-layout>
 
@@ -44,6 +47,7 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
 
 export default {
   name: 'login',
@@ -72,6 +76,9 @@ export default {
         this.error = error.response.data.error
       }
     }
+  },
+  components: {
+    Panel
   },
   mounted () {
     setTimeout(() => {
